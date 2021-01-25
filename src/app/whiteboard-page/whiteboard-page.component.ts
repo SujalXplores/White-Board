@@ -22,10 +22,12 @@ export class WhiteboardPageComponent implements OnInit {
   }
   erase: boolean = false;
   transformers: Konva.Transformer[] = [];
+
   constructor(
     private shapeService: ShapeService,
     private textNodeService: TextNodeService
   ) { }
+
   ngOnInit() {
     let width = window.innerWidth * 0.9;
     let height = window.innerHeight;
@@ -38,14 +40,17 @@ export class WhiteboardPageComponent implements OnInit {
     this.stage.add(this.layer);
     this.addLineListeners();
   }
+
   clearSelection() {
     Object.keys(this.selectedButton).forEach(key => {
       this.selectedButton[key] = false;
     })
   }
+
   setSelection(type: string) {
     this.selectedButton[type] = true;
   }
+
   addShape(type: string) {
     this.clearSelection();
     this.setSelection(type);
@@ -62,11 +67,13 @@ export class WhiteboardPageComponent implements OnInit {
       this.addText();
     }
   }
+
   addText() {
     const text = this.textNodeService.textNode(this.stage, this.layer);
     this.shapes.push(text.textNode);
     this.transformers.push(text.tr);
   }
+
   addCircle() {
     const circle = this.shapeService.circle();
     this.shapes.push(circle);
@@ -74,6 +81,7 @@ export class WhiteboardPageComponent implements OnInit {
     this.stage.add(this.layer);
     this.addTransformerListeners()
   }
+
   addRectangle() {
     const rectangle = this.shapeService.rectangle();
     this.shapes.push(rectangle);
@@ -81,9 +89,11 @@ export class WhiteboardPageComponent implements OnInit {
     this.stage.add(this.layer);
     this.addTransformerListeners()
   }
+
   addLine() {
     this.selectedButton['line'] = true;
   }
+
   addLineListeners() {
     const component = this;
     let lastLine: any;
@@ -113,6 +123,7 @@ export class WhiteboardPageComponent implements OnInit {
       component.layer.batchDraw();
     });
   }
+
   undo() {
     const removedShape = this.shapes.pop();
     this.transformers.forEach(t => {
@@ -123,6 +134,7 @@ export class WhiteboardPageComponent implements OnInit {
     }
     this.layer.draw();
   }
+
   addTransformerListeners() {
     const component = this;
     const tr = new Konva.Transformer();
@@ -143,6 +155,7 @@ export class WhiteboardPageComponent implements OnInit {
       }
     });
   }
+
   addDeleteListener(shape: any) {
     const component = this;
     window.addEventListener('keydown', function (e) {
@@ -157,5 +170,9 @@ export class WhiteboardPageComponent implements OnInit {
       }
       component.layer.batchDraw();
     });
+  }
+
+  clearBoard() {
+    location.reload();
   }
 }
