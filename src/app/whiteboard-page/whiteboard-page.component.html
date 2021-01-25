@@ -1,0 +1,9 @@
+<div class="row">
+    <button mat-raised-button [color]='selectedButton["circle"] ? "primary":""' (click)='setSelection("circle"); addShape("circle")'>Circle</button>
+    <button mat-raised-button [color]='selectedButton["rectangle"] ? "primary":""' (click)='setSelection("rectangle"); addShape("rectangle")'>Rectangle</button>
+    <button mat-raised-button [color]='selectedButton["line"] ? "primary":""' (click)='setSelection("line"); addShape("line"); erase = false'>Pencil</button>
+    <button mat-raised-button [color]='selectedButton["text"] ? "primary":""' (click)='setSelection("text"); addShape("text")'>Text</button>
+    <button mat-raised-button [color]='selectedButton["undo"] ? "primary":""' (click)='clearSelection(); setSelection("undo"); undo()'>Undo</button>
+    <button mat-raised-button [color]='selectedButton["erase"] ? "primary":""' (click)='clearSelection(); setSelection("erase"); erase = true'>Erase</button>
+</div>
+<div id="container"></div>
