@@ -1,6 +1,20 @@
 {
   "name": "white-board",
-  "version": "0.0.0",
+  "version": "2.0.0",
+  "author": "Sujal Shah",
+  "bugs": {
+    "url": "https://github.com/SujalShah3234/White-Board/issues"
+  },
+  "keywords": [
+    "angular 12",
+    "white-board",
+    "konva.js",
+    "paint"
+  ],
+  "engines": {
+    "node": "16.10.0",
+    "vscode": "1.60.0"
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
