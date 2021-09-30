@@ -1,8 +1,17 @@
 button {
-    margin: 5px;
+  margin: 5px;
 }
 
-.row {
-    background-color: lightgray;
-    padding: 10px;
+.white_board--controls {
+  position: absolute;
+  height: auto;
+  display: flex;
+  background-color: #dfdddd;
+  margin: 1.5rem;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: center;
+  border-radius: 30px;
+  padding: 0.5rem;
+  z-index: 2;
 }
