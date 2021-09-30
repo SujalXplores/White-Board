@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import Konva from 'konva';
 import { ShapeService } from '../shape.service';
 import { TextNodeService } from '../text-node.service';
+import Konva from 'konva';
 
 @Component({
   selector: 'app-whiteboard-page',
@@ -29,8 +29,8 @@ export class WhiteboardPageComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    let width = window.innerWidth * 0.9;
-    let height = window.innerHeight;
+    const width = document.body.clientWidth;
+    const height = document.body.clientHeight;
     this.stage = new Konva.Stage({
       container: 'container',
       width: width,
@@ -97,8 +97,9 @@ export class WhiteboardPageComponent implements OnInit {
   addLineListeners() {
     const component = this;
     let lastLine: any;
-    let isPaint: any;
+    let isPaint: boolean;
     this.stage.on('mousedown touchstart', function (e) {
+      e.evt.preventDefault();
       if (!component.selectedButton['line'] && !component.erase) {
         return;
       }
@@ -109,11 +110,13 @@ export class WhiteboardPageComponent implements OnInit {
       component.shapes.push(lastLine);
       component.layer.add(lastLine);
     });
-    this.stage.on('mouseup touchend', function () {
+    this.stage.on('mouseup touchend', function (e) {
+      e.evt.preventDefault();
       isPaint = false;
     });
     // and core function - drawing
-    this.stage.on('mousemove touchmove', function () {
+    this.stage.on('mousemove touchmove', function (e) {
+      e.evt.preventDefault();
       if (!isPaint) {
         return;
       }
@@ -139,6 +142,7 @@ export class WhiteboardPageComponent implements OnInit {
     const component = this;
     const tr = new Konva.Transformer();
     this.stage.on('click', function (e) {
+      e.evt.preventDefault();
       if (!this.clickStartShape) {
         return;
       }
@@ -159,6 +163,7 @@ export class WhiteboardPageComponent implements OnInit {
   addDeleteListener(shape: any) {
     const component = this;
     window.addEventListener('keydown', function (e) {
+      e.preventDefault();
       if (e.key === 'Delete') {
         shape.remove();
         component.transformers.forEach(t => {
@@ -166,13 +171,13 @@ export class WhiteboardPageComponent implements OnInit {
         });
         const selectedShape = component.shapes.find((s: any) => s._id == shape._id);
         selectedShape.remove();
-        e.preventDefault();
       }
       component.layer.batchDraw();
     });
   }
 
   clearBoard() {
-    location.reload();
+    this.layer.destroyChildren();
+    this.layer.draw();
   }
 }
