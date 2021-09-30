@@ -128,7 +128,9 @@
         },
         "deploy": {
           "builder": "angular-cli-ghpages:deploy",
-          "options": {}
+          "options": {
+            "baseHref": "https://sujalshah3234.github.io/White-Board/"
+          }
         }
       }
     }
