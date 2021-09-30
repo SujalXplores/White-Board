@@ -8,6 +8,7 @@ import { WhiteboardPageComponent } from './whiteboard-page/whiteboard-page.compo
 import { ShapeService } from './shape.service';
 import { TextNodeService } from './text-node.service';
 import { MatButtonModule } from '@angular/material/button';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { MatButtonModule } from '@angular/material/button';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatButtonModule
+    MatButtonModule,
+    MatTooltipModule
   ],
   providers: [
     ShapeService,
