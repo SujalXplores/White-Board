@@ -22,7 +22,7 @@ export class ShapeService {
   line(pos: any, mode: string = 'brush') {
     return new Konva.Line({
       stroke: 'red',
-      strokeWidth: 2,
+      strokeWidth: mode === 'brush' ? 2 : 15,
       globalCompositeOperation:
         mode === 'brush' ? 'source-over' : 'destination-out',
       points: [pos.x, pos.y],
