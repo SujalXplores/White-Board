@@ -32,7 +32,7 @@ export class TextNodeService {
       }
       if (e.target._id == this._mouseClickStartShape._id) {
         layer.add(tr);
-        tr.attachTo(e.target);
+        tr.nodes([e.target]);
         layer.draw();
       }
       else {
@@ -156,7 +156,6 @@ export class TextNodeService {
       });
 
       textarea.addEventListener('keydown', function (e) {
-        e.preventDefault();
         let scale = textNode.getAbsoluteScale().x;
         setTextareaWidth(textNode.width() * scale);
         textarea.style.height = 'auto';
