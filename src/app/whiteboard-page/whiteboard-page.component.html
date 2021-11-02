@@ -1,28 +1,16 @@
 <section class="white_board--wrapper">
   <div class="white_board--controls">
-    <button mat-mini-fab [color]='selectedButton["circle"] ? "primary":""'
-      (click)='setSelection("circle"); addShape("circle")' matTooltip="Circle" matTooltipPosition="right">
-      <i class="far fa-circle"></i>
-    </button>
-    <button mat-mini-fab [color]='selectedButton["rectangle"] ? "primary":""'
-      (click)='setSelection("rectangle"); addShape("rectangle")' matTooltip="Square" matTooltipPosition="right">
-      <i class="far fa-square-full"></i>
-    </button>
-    <button mat-mini-fab [color]='selectedButton["line"] ? "primary":""'
-      (click)='setSelection("line"); addShape("line"); erase = false' matTooltip="Pen" matTooltipPosition="right">
+    <button mat-mini-fab [color]='selectedButton["line"] ? "primary":""' (click)='setSelection("line");'
+      matTooltip="Pen" matTooltipPosition="right">
       <i class="far fa-pen"></i>
     </button>
-    <button mat-mini-fab [color]='selectedButton["text"] ? "primary":""'
-      (click)='setSelection("text"); addShape("text")' matTooltip="Text" matTooltipPosition="right">
-      <i class="far fa-text"></i>
-    </button>
-    <button mat-mini-fab [color]='selectedButton["undo"] ? "primary":""'
-      (click)='clearSelection(); setSelection("undo"); undo()' matTooltip="Undo" matTooltipPosition="right">
-      <i class="far fa-undo"></i>
-    </button>
-    <button mat-mini-fab [color]='selectedButton["erase"] ? "primary":""'
-      (click)='clearSelection(); setSelection("erase"); erase = true' matTooltip="Eraser" matTooltipPosition="right">
+    <button mat-mini-fab [color]='selectedButton["erase"] ? "primary":""' (click)='setSelection("erase");'
+      matTooltip="Eraser" matTooltipPosition="right">
       <i class="far fa-eraser"></i>
+    </button>
+    <button mat-mini-fab [color]='selectedButton["undo"] ? "primary":""' (click)='undo()' matTooltip="Undo"
+      matTooltipPosition="right">
+      <i class="far fa-undo"></i>
     </button>
     <button mat-mini-fab [color]='selectedButton["clear"] ? "primary":""' (click)='clearBoard()' matTooltip="Clear"
       matTooltipPosition="right">

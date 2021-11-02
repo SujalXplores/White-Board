@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ShapeService } from '../shape.service';
-import { TextNodeService } from '../text-node.service';
 import Konva from 'konva';
 
 @Component({
@@ -13,24 +12,20 @@ export class WhiteboardPageComponent implements OnInit {
   stage!: Konva.Stage;
   layer!: Konva.Layer;
   selectedButton: any = {
-    'circle': false,
-    'rectangle': false,
     'line': false,
     'undo': false,
-    'erase': false,
-    'text': false
+    'erase': false
   }
   erase: boolean = false;
   transformers: Konva.Transformer[] = [];
 
   constructor(
-    private shapeService: ShapeService,
-    private textNodeService: TextNodeService
+    private shapeService: ShapeService
   ) { }
 
   ngOnInit() {
-    const width = document.body.clientWidth;
-    const height = document.body.clientHeight;
+    const width = window.innerWidth;
+    const height = window.innerHeight;
     this.stage = new Konva.Stage({
       container: 'container',
       width: width,
@@ -48,56 +43,30 @@ export class WhiteboardPageComponent implements OnInit {
   }
 
   setSelection(type: string) {
-    this.selectedButton[type] = true;
-  }
-
-  addShape(type: string) {
     this.clearSelection();
-    this.setSelection(type);
-    if (type == 'circle') {
-      this.addCircle();
+    this.selectedButton[type] = true;
+    if (!(type === 'line')) this.selectedButton['line'] = false;
+    console.log(type);
+    switch (type) {
+      case "erase":
+        this.erase = true;
+        document.getElementById('container')!.style.cursor = 'cell';
+        break;
+      case "line":
+        this.erase = false;
+        document.getElementById('container')!.style.cursor = 'crosshair';
+        this.selectedButton['line'] = true;
+        break;
+      default:
+        document.getElementById('container')!.style.cursor = 'default';
+        break;
     }
-    else if (type == 'line') {
-      this.addLine();
-    }
-    else if (type == 'rectangle') {
-      this.addRectangle();
-    }
-    else if (type == 'text') {
-      this.addText();
-    }
-  }
-
-  addText() {
-    const text = this.textNodeService.textNode(this.stage, this.layer);
-    this.shapes.push(text.textNode);
-    this.transformers.push(text.tr);
-  }
-
-  addCircle() {
-    const circle = this.shapeService.circle();
-    this.shapes.push(circle);
-    this.layer.add(circle);
-    this.stage.add(this.layer);
-    this.addTransformerListeners()
-  }
-
-  addRectangle() {
-    const rectangle = this.shapeService.rectangle();
-    this.shapes.push(rectangle);
-    this.layer.add(rectangle);
-    this.stage.add(this.layer);
-    this.addTransformerListeners()
-  }
-
-  addLine() {
-    this.selectedButton['line'] = true;
   }
 
   addLineListeners() {
     const component = this;
     let lastLine: any;
-    let isPaint: boolean;
+    let isPaint: boolean = false;
     this.stage.on('mousedown touchstart', function (e) {
       e.evt.preventDefault();
       if (!component.selectedButton['line'] && !component.erase) {
@@ -105,8 +74,7 @@ export class WhiteboardPageComponent implements OnInit {
       }
       isPaint = true;
       let pos = component.stage.getPointerPosition();
-      const mode = component.erase ? 'erase' : 'brush';
-      lastLine = component.shapeService.line(pos, mode)
+      lastLine = component.erase ? component.shapeService.erase(pos, 15) : component.shapeService.line(pos, 2);
       component.shapes.push(lastLine);
       component.layer.add(lastLine);
     });
@@ -128,6 +96,7 @@ export class WhiteboardPageComponent implements OnInit {
   }
 
   undo() {
+    this.clearSelection();
     const removedShape = this.shapes.pop();
     this.transformers.forEach(t => {
       t.detach();
@@ -138,46 +107,8 @@ export class WhiteboardPageComponent implements OnInit {
     this.layer.draw();
   }
 
-  addTransformerListeners() {
-    const component = this;
-    const tr = new Konva.Transformer();
-    this.stage.on('click', function (e) {
-      e.evt.preventDefault();
-      if (!this._mouseClickStartShape) {
-        return;
-      }
-      if (e.target._id == this._mouseClickStartShape._id) {
-        component.addDeleteListener(e.target);
-        component.layer.add(tr);
-        tr.attachTo(e.target);
-        component.transformers.push(tr);
-        component.layer.draw();
-      }
-      else {
-        tr.detach();
-        component.layer.draw();
-      }
-    });
-  }
-
-  addDeleteListener(shape: any) {
-    const component = this;
-    window.addEventListener('keydown', function (e) {
-      if (e.key === 'Delete') {
-        shape.remove();
-        component.transformers.forEach(t => {
-          t.detach();
-        });
-        const selectedShape = component.shapes.find((s: any) => s._id == shape._id);
-        selectedShape.remove();
-      }
-      component.layer.batchDraw();
-    }, {
-      passive: true
-    });
-  }
-
   clearBoard() {
+    this.clearSelection();
     this.layer.destroyChildren();
     this.layer.draw();
   }

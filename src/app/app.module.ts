@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { WhiteboardPageComponent } from './whiteboard-page/whiteboard-page.component';
 import { ShapeService } from './shape.service';
-import { TextNodeService } from './text-node.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
@@ -23,8 +22,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatTooltipModule
   ],
   providers: [
-    ShapeService,
-    TextNodeService
+    ShapeService
   ],
   bootstrap: [AppComponent]
 })

@@ -5,40 +5,23 @@ import Konva from 'konva';
   providedIn: 'root'
 })
 export class ShapeService {
-
-  constructor() { }
-
-  circle() {
-    return new Konva.Circle({
-      x: 100,
-      y: 100,
-      radius: 70,
-      stroke: 'black',
-      strokeWidth: 2,
-      draggable: true
-    });
-  }
-
-  line(pos: any, mode: string = 'brush') {
+  line(pos: any, size: any) {
     return new Konva.Line({
       stroke: 'red',
-      strokeWidth: mode === 'brush' ? 2 : 15,
-      globalCompositeOperation:
-        mode === 'brush' ? 'source-over' : 'destination-out',
+      strokeWidth: size,
+      globalCompositeOperation: 'source-over',
       points: [pos.x, pos.y],
       draggable: false
     });
   }
 
-  rectangle() {
-    return new Konva.Rect({
-      x: 20,
-      y: 20,
-      width: 100,
-      height: 50,
-      stroke: 'black',
-      strokeWidth: 2,
-      draggable: true
+  erase(pos: any, size: any) {
+    return new Konva.Line({
+      stroke: 'white',
+      strokeWidth: size,
+      globalCompositeOperation: 'destination-out',
+      points: [pos.x, pos.y],
+      draggable: false
     });
   }
 }
