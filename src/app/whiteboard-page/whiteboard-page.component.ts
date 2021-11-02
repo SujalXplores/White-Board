@@ -143,10 +143,10 @@ export class WhiteboardPageComponent implements OnInit {
     const tr = new Konva.Transformer();
     this.stage.on('click', function (e) {
       e.evt.preventDefault();
-      if (!this.clickStartShape) {
+      if (!this._mouseClickStartShape) {
         return;
       }
-      if (e.target._id == this.clickStartShape._id) {
+      if (e.target._id == this._mouseClickStartShape._id) {
         component.addDeleteListener(e.target);
         component.layer.add(tr);
         tr.attachTo(e.target);
@@ -163,7 +163,6 @@ export class WhiteboardPageComponent implements OnInit {
   addDeleteListener(shape: any) {
     const component = this;
     window.addEventListener('keydown', function (e) {
-      e.preventDefault();
       if (e.key === 'Delete') {
         shape.remove();
         component.transformers.forEach(t => {
@@ -173,6 +172,8 @@ export class WhiteboardPageComponent implements OnInit {
         selectedShape.remove();
       }
       component.layer.batchDraw();
+    }, {
+      passive: true
     });
   }
 

@@ -5,7 +5,6 @@ import Konva from 'konva';
   providedIn: 'root'
 })
 export class TextNodeService {
-
   constructor() { }
 
   textNode(stage: Konva.Stage, layer: Konva.Layer) {
@@ -28,10 +27,10 @@ export class TextNodeService {
       }
     });
     stage.on('click', function (e) {
-      if (!this.clickStartShape) {
+      if (!this._mouseClickStartShape) {
         return;
       }
-      if (e.target._id == this.clickStartShape._id) {
+      if (e.target._id == this._mouseClickStartShape._id) {
         layer.add(tr);
         tr.attachTo(e.target);
         layer.draw();
@@ -152,23 +151,34 @@ export class TextNodeService {
         if (e.key === 'Escape') {
           removeTextarea();
         }
+      }, {
+        passive: true
       });
+
       textarea.addEventListener('keydown', function (e) {
+        e.preventDefault();
         let scale = textNode.getAbsoluteScale().x;
         setTextareaWidth(textNode.width() * scale);
         textarea.style.height = 'auto';
         textarea.style.height =
           textarea.scrollHeight + textNode.fontSize() + 'px';
+      }, {
+        passive: true
       });
+
       function handleOutsideClick(e: any) {
         if (e.target !== textarea) {
           removeTextarea();
         }
       }
+
       setTimeout(() => {
-        window.addEventListener('click', handleOutsideClick);
+        window.addEventListener('click', handleOutsideClick, {
+          passive: true
+        });
       });
     });
+
     return { textNode, tr };
   }
 }
