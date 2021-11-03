@@ -1,15 +1,81 @@
-button {
+.white_board--controls > button {
   margin: 5px;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
+.white_board--wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
 }
 
 .white_board--controls {
-  position: absolute;
-  height: auto;
+  position: fixed;
   display: flex;
-  background-color: #dfdddd;
+  background-color: #ffffff;
   flex-direction: column;
   flex-wrap: nowrap;
   align-items: center;
   padding: 0.5rem;
+  border-radius: 0 28px 28px 0;
+  z-index: 1;
+}
+
+.fad {
+  font-size: 1.2rem;
+}
+
+input[type="color"] {
+  border-radius: 50%;
+  cursor: pointer;
+  width: 1.5rem;
+  height: 1.5rem;
+  overflow: hidden;
+  border: 0;
+}
+
+input[type="color"]::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+input[type="color"]::-webkit-color-swatch {
+  border: none;
+  border-radius: 10px;
+}
+
+.menu_button {
+  position: fixed;
+  z-index: 4;
+  font-size: 2rem;
+  top: 0;
+  right: 0;
+}
+
+.brush_size_card {
+  background-color: #ffffff;
+  border-radius: 9px;
+  padding: 0.5rem;
+  margin: 0.5rem;
+  position: fixed;
   z-index: 2;
+  left: 8%;
+  filter: drop-shadow(0 1px 3px #3c40434d) drop-shadow(0 4px 8px #3c404326);
+  margin-bottom: 6rem;
+}
+
+.fa-eraser {
+  color: #ff7589;
+}
+
+.fa-undo {
+  color: #5f9ea0;
+}
+
+.fa-trash-alt {
+  color: #ff4500;
 }
