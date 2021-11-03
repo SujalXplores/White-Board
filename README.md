@@ -1,4 +1,9 @@
-# WhiteBoard
+# 🧑🏻‍🏫 WhiteBoard
+
+[![HitCount](http://hits.dwyl.com/SujalShah3234/White-Board.svg)](http://hits.dwyl.com/SujalShah3234/White-Board)
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/Naereen/StrapDown.js/graphs/commit-activity)
+[![Website shields.io](https://img.shields.io/website-up-down-green-red/http/shields.io.svg)](http://shields.io/)
+[![Open Source? Yes!](https://badgen.net/badge/Open%20Source%20%3F/Yes%21/blue?icon=github)](https://github.com/Naereen/badges/)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.1.1.
 
