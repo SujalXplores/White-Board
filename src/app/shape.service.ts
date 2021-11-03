@@ -5,12 +5,14 @@ import Konva from 'konva';
   providedIn: 'root'
 })
 export class ShapeService {
-  line(pos: any, size: any) {
+  line(pos: any, size: any, color: string) {
     return new Konva.Line({
-      stroke: 'red',
+      stroke: color,
       strokeWidth: size,
       globalCompositeOperation: 'source-over',
       points: [pos.x, pos.y],
+      lineCap: 'round',
+      lineJoin: 'round',
       draggable: false
     });
   }

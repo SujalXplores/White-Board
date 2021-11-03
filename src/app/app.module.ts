@@ -8,6 +8,12 @@ import { WhiteboardPageComponent } from './whiteboard-page/whiteboard-page.compo
 import { ShapeService } from './shape.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatSliderModule } from '@angular/material/slider';
+import { FormsModule } from '@angular/forms';
+import { MatIconModule } from '@angular/material/icon';
+import { HttpClientModule } from '@angular/common/http';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -18,8 +24,14 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    HttpClientModule,
+    FormsModule,
     MatButtonModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatMenuModule,
+    MatSliderModule,
+    MatIconModule,
+    MatCardModule
   ],
   providers: [
     ShapeService

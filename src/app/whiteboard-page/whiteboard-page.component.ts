@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ShapeService } from '../shape.service';
 import Konva from 'konva';
+import { MatIconRegistry } from '@angular/material/icon';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-whiteboard-page',
@@ -11,6 +13,7 @@ export class WhiteboardPageComponent implements OnInit {
   shapes: any = [];
   stage!: Konva.Stage;
   layer!: Konva.Layer;
+  inkColor: string = '#000000';
   selectedButton: any = {
     'line': false,
     'undo': false,
@@ -18,10 +21,18 @@ export class WhiteboardPageComponent implements OnInit {
   }
   erase: boolean = false;
   transformers: Konva.Transformer[] = [];
+  isBrushColor: boolean = false;
 
   constructor(
-    private shapeService: ShapeService
-  ) { }
+    private shapeService: ShapeService,
+    private matIconRegistry: MatIconRegistry,
+    private domSanitizer: DomSanitizer
+  ) {
+    this.matIconRegistry.addSvgIcon(
+      "brushSize",
+      this.domSanitizer.bypassSecurityTrustResourceUrl("../../assets/brushSize.svg")
+    );
+  }
 
   ngOnInit() {
     const width = window.innerWidth;
@@ -46,7 +57,6 @@ export class WhiteboardPageComponent implements OnInit {
     this.clearSelection();
     this.selectedButton[type] = true;
     if (!(type === 'line')) this.selectedButton['line'] = false;
-    console.log(type);
     switch (type) {
       case "erase":
         this.erase = true;
@@ -57,16 +67,26 @@ export class WhiteboardPageComponent implements OnInit {
         document.getElementById('container')!.style.cursor = 'crosshair';
         this.selectedButton['line'] = true;
         break;
+      case "brushSize":
+        this.isBrushColor = true;
+        break;
       default:
         document.getElementById('container')!.style.cursor = 'default';
         break;
     }
   }
 
+  focusIsOut(e: any) {
+    console.log(e);
+    console.log("out")
+    this.isBrushColor = false;
+  }
+
   addLineListeners() {
     const component = this;
     let lastLine: any;
     let isPaint: boolean = false;
+
     this.stage.on('mousedown touchstart', function (e) {
       e.evt.preventDefault();
       if (!component.selectedButton['line'] && !component.erase) {
@@ -74,15 +94,16 @@ export class WhiteboardPageComponent implements OnInit {
       }
       isPaint = true;
       let pos = component.stage.getPointerPosition();
-      lastLine = component.erase ? component.shapeService.erase(pos, 15) : component.shapeService.line(pos, 2);
+      lastLine = component.erase ? component.shapeService.erase(pos, 15) : component.shapeService.line(pos, 2, component.inkColor);
       component.shapes.push(lastLine);
       component.layer.add(lastLine);
     });
+
     this.stage.on('mouseup touchend', function (e) {
       e.evt.preventDefault();
       isPaint = false;
     });
-    // and core function - drawing
+
     this.stage.on('mousemove touchmove', function (e) {
       e.evt.preventDefault();
       if (!isPaint) {
@@ -98,12 +119,15 @@ export class WhiteboardPageComponent implements OnInit {
   undo() {
     this.clearSelection();
     const removedShape = this.shapes.pop();
+
     this.transformers.forEach(t => {
       t.detach();
     });
+
     if (removedShape) {
       removedShape.remove();
     }
+
     this.layer.draw();
   }
 
@@ -111,5 +135,22 @@ export class WhiteboardPageComponent implements OnInit {
     this.clearSelection();
     this.layer.destroyChildren();
     this.layer.draw();
+  }
+
+  saveAsImage() {
+    const dataUrl: string = this.stage.toDataURL({
+      mimeType: 'image/png',
+      quality: 1,
+      pixelRatio: 1
+    });
+
+    const link = document.createElement('a');
+    link.download = 'image.png';
+    link.href = dataUrl;
+    link.click();
+  }
+
+  reportBug() {
+    location.href = "https://github.com/SujalShah3234/White-Board/issues";
   }
 }
