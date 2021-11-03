@@ -1,21 +1,57 @@
 <section class="white_board--wrapper">
-  <div class="white_board--controls">
-    <button mat-mini-fab [color]='selectedButton["line"] ? "primary":""' (click)='setSelection("line");'
-      matTooltip="Pen" matTooltipPosition="right">
-      <i class="far fa-pen"></i>
+
+  <button class="menu_button" mat-icon-button [matMenuTriggerFor]="menu" aria-label="icon-button with a menu">
+    <i class="fal fa-ellipsis-v"></i>
+  </button>
+
+  <mat-menu #menu="matMenu" xPosition="before" yPosition="below">
+    <button mat-menu-item (click)="saveAsImage()">Save as image</button>
+    <button mat-menu-item (click)="reportBug()">Report bug</button>
+  </mat-menu>
+
+  <div class="white_board--controls mat-elevation-z8">
+    <button mat-mini-fab color='' matTooltip="Color Plate" matTooltipPosition="right">
+      <input type="color" [value]="inkColor" [style.background]="inkColor" [(ngModel)]="inkColor" />
     </button>
-    <button mat-mini-fab [color]='selectedButton["erase"] ? "primary":""' (click)='setSelection("erase");'
-      matTooltip="Eraser" matTooltipPosition="right">
-      <i class="far fa-eraser"></i>
-    </button>
-    <button mat-mini-fab [color]='selectedButton["undo"] ? "primary":""' (click)='undo()' matTooltip="Undo"
+
+    <button mat-mini-fab color='' (click)='setSelection("brushSize")' matTooltip="Brush Size"
       matTooltipPosition="right">
-      <i class="far fa-undo"></i>
+      <mat-icon svgIcon="brushSize"></mat-icon>
     </button>
-    <button mat-mini-fab [color]='selectedButton["clear"] ? "primary":""' (click)='clearBoard()' matTooltip="Clear"
-      matTooltipPosition="right">
-      <i class="far fa-trash-alt"></i>
+
+    <button mat-mini-fab color='' [style.border]='selectedButton["line"] ? "2px solid #673ab7":"0"'
+      (click)='setSelection("line")' matTooltip="Pen" matTooltipPosition="right">
+      <i class="fad fa-pencil-alt" [style.color]="inkColor"></i>
+    </button>
+
+    <button mat-mini-fab color='' [style.border]='selectedButton["erase"] ? "2px solid #673ab7":"0"'
+      (click)='setSelection("erase")' matTooltip="Eraser" matTooltipPosition="right">
+      <i class="fad fa-eraser"></i>
+    </button>
+
+    <button mat-mini-fab color='' (click)='undo()' matTooltip="Undo" matTooltipPosition="right">
+      <i class="fad fa-undo"></i>
+    </button>
+
+    <button mat-mini-fab color='' (click)='clearBoard()' matTooltip="Clear" matTooltipPosition="right">
+      <i class="fad fa-trash-alt"></i>
     </button>
   </div>
-  <div id="container"></div>
+
+  <!-- when div is out of focus then hide it -->
+  <mat-card tabindex="-1" class="brush_size_card" *ngIf="isBrushColor" (focusout)="focusIsOut($event)">
+    <div class="brush_size_card--content">
+      <div class="brush_size_card--content--size">
+        <span>Size</span>
+      </div>
+      <div class="brush_size_card--content--slider">
+        <mat-slider aria-label="brush size" thumbLabel='true' tickInterval="1" min="1" max="100" step="1"></mat-slider>
+        <!--
+          [value]="brushSize" (change)="updateBrushSize($event)"-->
+      </div>
+
+    </div>
+  </mat-card>
+
+  <div id="container" (focus)="focusIsOut($event)"></div>
 </section>
