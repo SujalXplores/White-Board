@@ -1,0 +1,1 @@
+ng deploy --base-href=https://sujalshah3234.github.io/White-Board/
