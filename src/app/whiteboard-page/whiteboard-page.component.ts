@@ -30,7 +30,7 @@ export class WhiteboardPageComponent implements OnInit {
   ) {
     this.matIconRegistry.addSvgIcon(
       "brushSize",
-      this.domSanitizer.bypassSecurityTrustResourceUrl("../../assets/brushSize.svg")
+      this.domSanitizer.bypassSecurityTrustResourceUrl("assets/brushSize.svg")
     );
   }
 
