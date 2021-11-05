@@ -17,13 +17,12 @@ export class WhiteboardPageComponent implements OnInit {
   inkColor: string = '#000000';
   selectedButton: any = {
     'line': false,
-    'undo': false,
     'erase': false
   }
   erase: boolean = false;
   transformers: Konva.Transformer[] = [];
-  isBrushColor: boolean = false;
   brushSize!: number;
+  brushOpacity!: number;
 
   constructor(
     private _bottomSheet: MatBottomSheet,
@@ -32,8 +31,8 @@ export class WhiteboardPageComponent implements OnInit {
     private domSanitizer: DomSanitizer
   ) {
     this.matIconRegistry.addSvgIcon(
-      "brushSize",
-      this.domSanitizer.bypassSecurityTrustResourceUrl("assets/brushSize.svg")
+      "brushSizeAndOpacity",
+      this.domSanitizer.bypassSecurityTrustResourceUrl("assets/brushSizeAndOpacity.svg")
     );
   }
 
@@ -60,7 +59,8 @@ export class WhiteboardPageComponent implements OnInit {
     const bottomSheetRef = this._bottomSheet.open(BottomSheet);
     bottomSheetRef.afterDismissed().subscribe((result) => {
       if (result) {
-        this.brushSize = result;
+        this.brushSize = result.brushSize;
+        this.brushOpacity = result.brushOpacity;
       }
     });
   }
@@ -72,18 +72,12 @@ export class WhiteboardPageComponent implements OnInit {
     switch (type) {
       case "erase":
         this.erase = true;
-        document.getElementById('container')!.style.cursor = 'cell';
         break;
       case "line":
         this.erase = false;
-        document.getElementById('container')!.style.cursor = 'crosshair';
         this.selectedButton['line'] = true;
         break;
-      case "brushSize":
-        this.isBrushColor = true;
-        break;
       default:
-        document.getElementById('container')!.style.cursor = 'default';
         break;
     }
   }
@@ -100,7 +94,7 @@ export class WhiteboardPageComponent implements OnInit {
       }
       isPaint = true;
       let pos = component.stage.getPointerPosition();
-      lastLine = component.erase ? component.shapeService.erase(pos, 25) : component.shapeService.line(pos, component.brushSize, component.inkColor);
+      lastLine = component.erase ? component.shapeService.erase(pos, 30) : component.shapeService.line(pos, component.brushSize, component.inkColor, component.brushOpacity);
       component.shapes.push(lastLine);
       component.layer.add(lastLine);
     });
@@ -116,7 +110,7 @@ export class WhiteboardPageComponent implements OnInit {
         return;
       }
       const position: any = component.stage.getPointerPosition();
-      var newPoints = lastLine.points().concat([position.x, position.y]);
+      const newPoints = lastLine.points().concat([position.x, position.y]);
       lastLine.points(newPoints);
       component.layer.batchDraw();
     });
@@ -159,6 +153,16 @@ export class WhiteboardPageComponent implements OnInit {
   reportBug() {
     location.href = "https://github.com/SujalShah3234/White-Board/issues";
   }
+
+  getCursorClass() {
+    if (this.selectedButton['line']) {
+      return 'line';
+    } else if (this.selectedButton['erase']) {
+      return 'eraser';
+    } else {
+      return 'default';
+    }
+  }
 }
 
 @Component({
@@ -168,11 +172,17 @@ export class WhiteboardPageComponent implements OnInit {
 })
 export class BottomSheet {
   brushSize!: number;
+  brushOpacity!: number;
   constructor(private bottomSheet: MatBottomSheetRef<BottomSheet>, private shapeService: ShapeService) {
     this.brushSize = this.shapeService.brushSize;
+    this.brushOpacity = this.shapeService.brushOpacity;
   }
 
   ngOnDestroy(): void {
-    this.bottomSheet.dismiss(this.brushSize);
+    const data = {
+      brushSize: this.brushSize,
+      brushOpacity: this.brushOpacity
+    }
+    this.bottomSheet.dismiss(data);
   }
 }

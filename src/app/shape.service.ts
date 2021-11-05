@@ -5,9 +5,11 @@ import Konva from 'konva';
 })
 export class ShapeService {
   brushSize!: number;
+  brushOpacity!: number;
 
-  line(pos: any, size: any, color: string) {
+  line(pos: any, size: any, color: string, opacity: number) {
     this.brushSize = size;
+    this.brushOpacity = opacity;
     return new Konva.Line({
       stroke: color,
       strokeWidth: size,
@@ -15,7 +17,8 @@ export class ShapeService {
       points: [pos.x, pos.y],
       lineCap: 'round',
       lineJoin: 'round',
-      draggable: false
+      draggable: false,
+      opacity: opacity
     });
   }
 
