@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ShapeService } from '../shape.service';
-import Konva from 'konva';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
+import { MatBottomSheet, MatBottomSheetRef } from '@angular/material/bottom-sheet';
+import Konva from 'konva';
 
 @Component({
   selector: 'app-whiteboard-page',
@@ -22,8 +23,10 @@ export class WhiteboardPageComponent implements OnInit {
   erase: boolean = false;
   transformers: Konva.Transformer[] = [];
   isBrushColor: boolean = false;
+  brushSize!: number;
 
   constructor(
+    private _bottomSheet: MatBottomSheet,
     private shapeService: ShapeService,
     private matIconRegistry: MatIconRegistry,
     private domSanitizer: DomSanitizer
@@ -53,6 +56,15 @@ export class WhiteboardPageComponent implements OnInit {
     })
   }
 
+  openBottomSheet() {
+    const bottomSheetRef = this._bottomSheet.open(BottomSheet);
+    bottomSheetRef.afterDismissed().subscribe((result) => {
+      if (result) {
+        this.brushSize = result;
+      }
+    });
+  }
+
   setSelection(type: string) {
     this.clearSelection();
     this.selectedButton[type] = true;
@@ -76,12 +88,6 @@ export class WhiteboardPageComponent implements OnInit {
     }
   }
 
-  focusIsOut(e: any) {
-    console.log(e);
-    console.log("out")
-    this.isBrushColor = false;
-  }
-
   addLineListeners() {
     const component = this;
     let lastLine: any;
@@ -94,7 +100,7 @@ export class WhiteboardPageComponent implements OnInit {
       }
       isPaint = true;
       let pos = component.stage.getPointerPosition();
-      lastLine = component.erase ? component.shapeService.erase(pos, 15) : component.shapeService.line(pos, 2, component.inkColor);
+      lastLine = component.erase ? component.shapeService.erase(pos, 25) : component.shapeService.line(pos, component.brushSize, component.inkColor);
       component.shapes.push(lastLine);
       component.layer.add(lastLine);
     });
@@ -152,5 +158,21 @@ export class WhiteboardPageComponent implements OnInit {
 
   reportBug() {
     location.href = "https://github.com/SujalShah3234/White-Board/issues";
+  }
+}
+
+@Component({
+  selector: 'bottom-sheet',
+  templateUrl: 'bottom-sheet.html',
+  styleUrls: ['./whiteboard-page.component.scss']
+})
+export class BottomSheet {
+  brushSize!: number;
+  constructor(private bottomSheet: MatBottomSheetRef<BottomSheet>, private shapeService: ShapeService) {
+    this.brushSize = this.shapeService.brushSize;
+  }
+
+  ngOnDestroy(): void {
+    this.bottomSheet.dismiss(this.brushSize);
   }
 }

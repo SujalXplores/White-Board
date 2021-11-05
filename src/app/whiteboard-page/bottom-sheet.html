@@ -1,0 +1,10 @@
+<mat-action-list>
+  <div>Brush Size</div>
+  <div mat-list-item>
+    <div mat-line>
+      <mat-slider [value]="brushSize" [(ngModel)]="brushSize" thumbLabel step="1" min="0" max="100"
+        aria-label="brush size">
+      </mat-slider>
+    </div>
+  </div>
+</mat-action-list>

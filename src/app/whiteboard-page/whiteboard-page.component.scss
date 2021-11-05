@@ -56,18 +56,6 @@ input[type="color"]::-webkit-color-swatch {
   right: 0;
 }
 
-.brush_size_card {
-  background-color: #ffffff;
-  border-radius: 9px;
-  padding: 0.5rem;
-  margin: 0.5rem;
-  position: fixed;
-  z-index: 2;
-  left: 8%;
-  filter: drop-shadow(0 1px 3px #3c40434d) drop-shadow(0 4px 8px #3c404326);
-  margin-bottom: 6rem;
-}
-
 .fa-eraser {
   color: #ff7589;
 }
@@ -78,4 +66,27 @@ input[type="color"]::-webkit-color-swatch {
 
 .fa-trash-alt {
   color: #ff4500;
+}
+
+mat-slider {
+  width: 100%;
+}
+
+.color-palette {
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+}
+
+.color-palette__wrapper {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.mat-mini-fab {
+  background-color: unset;
 }

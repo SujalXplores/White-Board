@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import Konva from 'konva';
-
 @Injectable({
   providedIn: 'root'
 })
 export class ShapeService {
+  brushSize!: number;
+
   line(pos: any, size: any, color: string) {
+    this.brushSize = size;
     return new Konva.Line({
       stroke: color,
       strokeWidth: size,
