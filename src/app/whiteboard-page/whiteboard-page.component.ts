@@ -39,8 +39,8 @@ export class WhiteboardPageComponent implements OnInit {
       this.domSanitizer.bypassSecurityTrustResourceUrl("assets/brushSizeAndOpacity.svg")
     );
     this.matIconRegistry.addSvgIcon(
-      "pencil",
-      this.domSanitizer.bypassSecurityTrustResourceUrl("assets/pencil.svg")
+      "brush",
+      this.domSanitizer.bypassSecurityTrustResourceUrl("assets/brush.svg")
     );
     this.matIconRegistry.addSvgIcon(
       "eraser",
@@ -89,14 +89,14 @@ export class WhiteboardPageComponent implements OnInit {
   setSelection(type: string) {
     this.clearSelection();
     this.selectedButton[type] = true;
-    if (!(type === 'line')) this.selectedButton['line'] = false;
+    if (!(type === 'brush')) this.selectedButton['brush'] = false;
     switch (type) {
       case "erase":
         this.erase = true;
         break;
-      case "line":
+      case "brush":
         this.erase = false;
-        this.selectedButton['line'] = true;
+        this.selectedButton['brush'] = true;
         break;
       default:
         this.erase = false;
@@ -110,12 +110,12 @@ export class WhiteboardPageComponent implements OnInit {
     let isPaint: boolean = false;
 
     this.stage.on('mousedown touchstart', function () {
-      if (!component.selectedButton['line'] && !component.erase) {
+      if (!component.selectedButton['brush'] && !component.erase) {
         return;
       }
       isPaint = true;
       let pos = component.stage.getPointerPosition();
-      lastLine = component.erase ? component.shapeService.erase(pos, 30) : component.shapeService.line(pos, component.brushSize, component.inkColor, component.brushOpacity);
+      lastLine = component.erase ? component.shapeService.erase(pos, 30) : component.shapeService.brush(pos, component.brushSize, component.inkColor, component.brushOpacity);
       component.shapes.push(lastLine);
       component.layer.add(lastLine);
     });
@@ -174,8 +174,8 @@ export class WhiteboardPageComponent implements OnInit {
   }
 
   getCursorClass() {
-    if (this.selectedButton['line']) {
-      return 'line';
+    if (this.selectedButton['brush']) {
+      return 'brush';
     } else if (this.selectedButton['erase']) {
       return 'eraser';
     } else {

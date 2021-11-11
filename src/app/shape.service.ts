@@ -7,7 +7,7 @@ export class ShapeService {
   brushSize!: number;
   brushOpacity!: number;
 
-  line(pos: any, size: any, color: string, opacity: number) {
+  brush(pos: any, size: any, color: string, opacity: number) {
     this.brushSize = size;
     this.brushOpacity = opacity;
     return new Konva.Line({
