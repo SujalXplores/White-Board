@@ -5,6 +5,14 @@
 [![Website shields.io](https://img.shields.io/website-up-down-green-red/http/shields.io.svg)](http://shields.io/)
 [![Open Source? Yes!](https://badgen.net/badge/Open%20Source%20%3F/Yes%21/blue?icon=github)](https://github.com/Naereen/badges/)
 
+---
+
+# ⚡ Light House Performance
+
+![performance](https://github.com/SujalShah3234/White-Board/blob/master/lighthouse-performance.png)
+
+---
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.1.1.
 
 ## Development server
