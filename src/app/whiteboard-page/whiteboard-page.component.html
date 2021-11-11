@@ -1,7 +1,7 @@
 <section class="white_board--wrapper">
 
   <button class="menu_button" mat-icon-button [matMenuTriggerFor]="menu" aria-label="icon-button with a menu">
-    <i class="fad fa-ellipsis-v"></i>
+    <mat-icon svgIcon="menu"></mat-icon>
   </button>
 
   <mat-menu #menu="matMenu" xPosition="before" yPosition="below">
@@ -18,22 +18,24 @@
       <mat-icon svgIcon="brushSizeAndOpacity"></mat-icon>
     </button>
 
+    <hr class="hr_divider" />
+
     <button mat-mini-fab [style.border]='selectedButton["line"] ? "2px solid #673ab7":"0"'
       (click)='setSelection("line")' matTooltip="Pen" matTooltipPosition="right">
-      <i class="fad fa-pencil-alt" [style.color]="inkColor"></i>
+      <mat-icon svgIcon="pencil" [style.fill]="inkColor"></mat-icon>
     </button>
 
     <button mat-mini-fab [style.border]='selectedButton["erase"] ? "2px solid #673ab7":"0"'
       (click)='setSelection("erase")' matTooltip="Eraser" matTooltipPosition="right">
-      <i class="fad fa-eraser"></i>
+      <mat-icon svgIcon="eraser"></mat-icon>
     </button>
 
     <button mat-mini-fab (click)='undo()' matTooltip="Undo" matTooltipPosition="right">
-      <i class="fad fa-undo"></i>
+      <mat-icon svgIcon="undo"></mat-icon>
     </button>
 
     <button mat-mini-fab (click)='clearBoard()' matTooltip="Clear" matTooltipPosition="right">
-      <i class="fad fa-trash-alt"></i>
+      <mat-icon svgIcon="delete"></mat-icon>
     </button>
   </div>
 

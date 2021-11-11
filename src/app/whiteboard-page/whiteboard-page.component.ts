@@ -31,12 +31,33 @@ export class WhiteboardPageComponent implements OnInit {
     private domSanitizer: DomSanitizer
   ) {
     this.matIconRegistry.addSvgIcon(
+      "menu",
+      this.domSanitizer.bypassSecurityTrustResourceUrl("assets/menu.svg")
+    );
+    this.matIconRegistry.addSvgIcon(
       "brushSizeAndOpacity",
       this.domSanitizer.bypassSecurityTrustResourceUrl("assets/brushSizeAndOpacity.svg")
+    );
+    this.matIconRegistry.addSvgIcon(
+      "pencil",
+      this.domSanitizer.bypassSecurityTrustResourceUrl("assets/pencil.svg")
+    );
+    this.matIconRegistry.addSvgIcon(
+      "eraser",
+      this.domSanitizer.bypassSecurityTrustResourceUrl("assets/eraser.svg")
+    );
+    this.matIconRegistry.addSvgIcon(
+      "undo",
+      this.domSanitizer.bypassSecurityTrustResourceUrl("assets/undo.svg")
+    );
+    this.matIconRegistry.addSvgIcon(
+      "delete",
+      this.domSanitizer.bypassSecurityTrustResourceUrl("assets/delete.svg")
     );
   }
 
   ngOnInit() {
+    // console.clear();
     const width = window.innerWidth;
     const height = window.innerHeight;
     this.stage = new Konva.Stage({
@@ -78,6 +99,7 @@ export class WhiteboardPageComponent implements OnInit {
         this.selectedButton['line'] = true;
         break;
       default:
+        this.erase = false;
         break;
     }
   }
@@ -87,8 +109,7 @@ export class WhiteboardPageComponent implements OnInit {
     let lastLine: any;
     let isPaint: boolean = false;
 
-    this.stage.on('mousedown touchstart', function (e) {
-      e.evt.preventDefault();
+    this.stage.on('mousedown touchstart', function () {
       if (!component.selectedButton['line'] && !component.erase) {
         return;
       }
@@ -99,13 +120,11 @@ export class WhiteboardPageComponent implements OnInit {
       component.layer.add(lastLine);
     });
 
-    this.stage.on('mouseup touchend', function (e) {
-      e.evt.preventDefault();
+    this.stage.on('mouseup touchend', function () {
       isPaint = false;
     });
 
-    this.stage.on('mousemove touchmove', function (e) {
-      e.evt.preventDefault();
+    this.stage.on('mousemove touchmove', function () {
       if (!isPaint) {
         return;
       }
@@ -145,7 +164,7 @@ export class WhiteboardPageComponent implements OnInit {
     });
 
     const link = document.createElement('a');
-    link.download = 'image.png';
+    link.download = 'board_image.png';
     link.href = dataUrl;
     link.click();
   }
