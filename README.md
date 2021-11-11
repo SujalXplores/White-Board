@@ -7,7 +7,7 @@
 
 ---
 
-# ⚡ Light House Performance
+## ⚡ Light House Performance
 
 ![performance](https://github.com/SujalShah3234/White-Board/blob/master/lighthouse-performance.png)
 
