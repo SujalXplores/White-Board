@@ -26,10 +26,6 @@
   z-index: 1;
 }
 
-.fad {
-  font-size: 1.2rem;
-}
-
 input[type="color"] {
   border-radius: 50%;
   cursor: pointer;
@@ -54,18 +50,6 @@ input[type="color"]::-webkit-color-swatch {
   font-size: 2rem;
   top: 0;
   right: 0;
-}
-
-.fa-eraser {
-  color: #ff7589;
-}
-
-.fa-undo {
-  color: #5f9ea0;
-}
-
-.fa-trash-alt {
-  color: #ff4500;
 }
 
 mat-slider {
@@ -109,4 +93,12 @@ mat-slider {
   border: 0.5px solid #c7c7c782;
   margin: 0.5rem;
   width: 100%;
+}
+
+.primary_border {
+  border: 2px solid #673ab7;
+}
+
+.no_border {
+  border: 0;
 }

@@ -1,12 +1,11 @@
 <section class="white_board--wrapper">
-
   <button class="menu_button" mat-icon-button [matMenuTriggerFor]="menu" aria-label="Icon-button with a menu">
     <mat-icon svgIcon="menu"></mat-icon>
   </button>
 
   <mat-menu #menu="matMenu" xPosition="before" yPosition="below">
-    <button mat-menu-item (click)="saveAsImage()">Save as image</button>
-    <button mat-menu-item (click)="reportBug()">Report bug</button>
+    <a mat-menu-item (click)="saveAsImage()" aria-label="Save as image">Save as image</a>
+    <a mat-menu-item href="https://github.com/SujalShah3234/White-Board/issues" aria-label="Report Bug">Report bug</a>
   </mat-menu>
 
   <div class="white_board--controls mat-elevation-z8">
@@ -22,13 +21,13 @@
 
     <hr class="hr_divider" />
 
-    <button mat-mini-fab [style.border]='selectedButton["brush"] ? "2px solid #673ab7":"0"'
+    <button mat-mini-fab [ngClass]='selectedButton["brush"] ? "primary_border":"no_border"'
       (click)='setSelection("brush")' matTooltip="Brush" matTooltipPosition="right" aria-label="Brush">
       <mat-icon svgIcon="brush" [style.fill]="inkColor"></mat-icon>
     </button>
 
-    <button mat-mini-fab [style.border]='selectedButton["erase"] ? "2px solid #673ab7":"0"'
-      (click)='setSelection("erase")' matTooltip="Eraser" matTooltipPosition="right" aria-label="Eraser">
+    <button mat-mini-fab [ngClass]='selectedButton["eraser"] ? "primary_border":"no_border"'
+      (click)='setSelection("eraser")' matTooltip="Eraser" matTooltipPosition="right" aria-label="Eraser">
       <mat-icon svgIcon="eraser"></mat-icon>
     </button>
 

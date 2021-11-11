@@ -19,7 +19,7 @@ export class WhiteboardPageComponent implements OnInit {
     'line': false,
     'erase': false
   }
-  erase: boolean = false;
+  eraser: boolean = false;
   transformers: Konva.Transformer[] = [];
   brushSize!: number;
   brushOpacity!: number;
@@ -71,9 +71,10 @@ export class WhiteboardPageComponent implements OnInit {
   }
 
   clearSelection() {
-    Object.keys(this.selectedButton).forEach(key => {
-      this.selectedButton[key] = false;
-    })
+    this.selectedButton = {
+      'brush': false,
+      'eraser': false
+    }
   }
 
   openBottomSheet() {
@@ -91,15 +92,15 @@ export class WhiteboardPageComponent implements OnInit {
     this.selectedButton[type] = true;
     if (!(type === 'brush')) this.selectedButton['brush'] = false;
     switch (type) {
-      case "erase":
-        this.erase = true;
+      case "eraser":
+        this.eraser = true;
         break;
       case "brush":
-        this.erase = false;
+        this.eraser = false;
         this.selectedButton['brush'] = true;
         break;
       default:
-        this.erase = false;
+        this.eraser = false;
         break;
     }
   }
@@ -110,12 +111,12 @@ export class WhiteboardPageComponent implements OnInit {
     let isPaint: boolean = false;
 
     this.stage.on('mousedown touchstart', function () {
-      if (!component.selectedButton['brush'] && !component.erase) {
+      if (!component.selectedButton['brush'] && !component.eraser) {
         return;
       }
       isPaint = true;
       let pos = component.stage.getPointerPosition();
-      lastLine = component.erase ? component.shapeService.erase(pos, 30) : component.shapeService.brush(pos, component.brushSize, component.inkColor, component.brushOpacity);
+      lastLine = component.eraser ? component.shapeService.erase(pos, 30) : component.shapeService.brush(pos, component.brushSize, component.inkColor, component.brushOpacity);
       component.shapes.push(lastLine);
       component.layer.add(lastLine);
     });
@@ -167,10 +168,6 @@ export class WhiteboardPageComponent implements OnInit {
     link.download = 'board_image.png';
     link.href = dataUrl;
     link.click();
-  }
-
-  reportBug() {
-    location.href = "https://github.com/SujalShah3234/White-Board/issues";
   }
 
   getCursorClass() {
