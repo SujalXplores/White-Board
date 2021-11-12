@@ -1,6 +1,6 @@
 {
   "name": "white-board",
-  "version": "3.0.0",
+  "version": "3.5.0",
   "author": "Sujal Shah",
   "description": "Simple Whiteboard app in Angular",
   "bugs": {
@@ -13,8 +13,7 @@
     "paint"
   ],
   "scripts": {
-    "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve -o",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
