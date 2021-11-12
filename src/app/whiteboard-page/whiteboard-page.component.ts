@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ShapeService } from '../shape.service';
+import { KonvaService } from '../konva.service';
 import { MatBottomSheet, MatBottomSheetRef } from '@angular/material/bottom-sheet';
 import Konva from 'konva';
 
@@ -15,40 +15,38 @@ export class WhiteboardPageComponent implements OnInit {
   inkColor: string = '#000000';
   selectedButton: any = {
     'line': false,
-    'erase': false
+    'eraser': false
   }
   eraser: boolean = false;
   transformers: Konva.Transformer[] = [];
-  brushSize!: number;
-  brushOpacity!: number;
+  brushSize: number = 3;
+  brushOpacity: number = 1.0;
 
   constructor(
     private _bottomSheet: MatBottomSheet,
-    private shapeService: ShapeService
+    private konvaService: KonvaService
   ) { }
 
-  ngOnInit() {
-    // console.clear();
-    const width = window.innerWidth;
-    const height = window.innerHeight;
+  ngOnInit(): void {
+    this.setSelection('brush');
     this.stage = new Konva.Stage({
       container: 'container',
-      width: width,
-      height: height
+      width: window.innerWidth,
+      height: window.innerHeight
     });
     this.layer = new Konva.Layer();
     this.stage.add(this.layer);
     this.addLineListeners();
   }
 
-  clearSelection() {
+  clearSelection(): void {
     this.selectedButton = {
       'brush': false,
       'eraser': false
     }
   }
 
-  openBottomSheet() {
+  openBottomSheet(): void {
     const bottomSheetRef = this._bottomSheet.open(BottomSheet);
     bottomSheetRef.afterDismissed().subscribe((result) => {
       if (result) {
@@ -76,7 +74,7 @@ export class WhiteboardPageComponent implements OnInit {
     }
   }
 
-  addLineListeners() {
+  addLineListeners(): void {
     const component = this;
     let lastLine: any;
     let isPaint: boolean = false;
@@ -87,7 +85,7 @@ export class WhiteboardPageComponent implements OnInit {
       }
       isPaint = true;
       let pos = component.stage.getPointerPosition();
-      lastLine = component.eraser ? component.shapeService.erase(pos, 30) : component.shapeService.brush(pos, component.brushSize, component.inkColor, component.brushOpacity);
+      lastLine = component.eraser ? component.konvaService.erase(pos, 30) : component.konvaService.brush(pos, component.brushSize, component.inkColor, component.brushOpacity);
       component.shapes.push(lastLine);
       component.layer.add(lastLine);
     });
@@ -96,10 +94,11 @@ export class WhiteboardPageComponent implements OnInit {
       isPaint = false;
     });
 
-    this.stage.on('mousemove touchmove', function () {
+    this.stage.on('mousemove touchmove', function (e: any) {
       if (!isPaint) {
         return;
       }
+      e.evt.preventDefault();
       const position: any = component.stage.getPointerPosition();
       const newPoints = lastLine.points().concat([position.x, position.y]);
       lastLine.points(newPoints);
@@ -107,8 +106,7 @@ export class WhiteboardPageComponent implements OnInit {
     });
   }
 
-  undo() {
-    this.clearSelection();
+  undo(): void {
     const removedShape = this.shapes.pop();
 
     this.transformers.forEach(t => {
@@ -122,13 +120,12 @@ export class WhiteboardPageComponent implements OnInit {
     this.layer.draw();
   }
 
-  clearBoard() {
-    this.clearSelection();
+  clearBoard(): void {
     this.layer.destroyChildren();
     this.layer.draw();
   }
 
-  saveAsImage() {
+  saveAsImage(): void {
     const dataUrl: string = this.stage.toDataURL({
       mimeType: 'image/png',
       quality: 1,
@@ -141,11 +138,9 @@ export class WhiteboardPageComponent implements OnInit {
     link.click();
   }
 
-  getCursorClass() {
-    if (this.selectedButton['brush']) {
-      return 'brush';
-    } else if (this.selectedButton['erase']) {
-      return 'eraser';
+  getCursorClass(): string {
+    if (this.selectedButton['brush'] || this.selectedButton['eraser']) {
+      return 'pointer_cursor';
     } else {
       return 'default';
     }
@@ -160,9 +155,9 @@ export class WhiteboardPageComponent implements OnInit {
 export class BottomSheet {
   brushSize!: number;
   brushOpacity!: number;
-  constructor(private bottomSheet: MatBottomSheetRef<BottomSheet>, private shapeService: ShapeService) {
-    this.brushSize = this.shapeService.brushSize;
-    this.brushOpacity = this.shapeService.brushOpacity;
+  constructor(private bottomSheet: MatBottomSheetRef<BottomSheet>, private konvaService: KonvaService) {
+    this.brushSize = this.konvaService.brushSize;
+    this.brushOpacity = this.konvaService.brushOpacity;
   }
 
   ngOnDestroy(): void {

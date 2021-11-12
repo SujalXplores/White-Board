@@ -29,8 +29,8 @@
 input[type="color"] {
   border-radius: 50%;
   cursor: pointer;
-  width: 1.5rem;
-  height: 1.5rem;
+  width: 2.5rem;
+  height: 2.5rem;
   overflow: hidden;
   border: 0;
 }
@@ -75,17 +75,11 @@ mat-slider {
   background-color: unset;
 }
 
-.brush {
-  cursor: url("data:image/x-icon;base64,AAACAAEAICACAA4ADQAwAQAAFgAAACgAAAAgAAAAQAAAAAEAAQAAAAAAgAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//////////////////////////////////////////////////////////////////////////////////j////wf///4D///+A////gP///8H////j///////////////////////////////////////////////////////8="),
-    auto;
+.pointer_cursor {
+  cursor: pointer;
 }
 
-.eraser {
-  cursor: url("data:image/x-icon;base64,AAACAAEAICACAAcABwAwAQAAFgAAACgAAAAgAAAAQAAAAAEAAQAAAAAAgAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAANjY2AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAOAAAAMYAAAEBAAACAIAAAgCAAAQQQAAEOEAABBBAAAIAgAACAIAAAQEAAADGAAAAOAAAAAAAAA/////////////////////////////////////////////////////////////////////////////////////////////////H////Of///v7///3/f//9/3//+++///vHv//777///f9///3/f//+/v///zn////H////////8="),
-    auto;
-}
-
-.default {
+.default_cursor {
   cursor: default;
 }
 
