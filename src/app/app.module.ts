@@ -4,7 +4,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { WhiteboardPageComponent } from './whiteboard-page/whiteboard-page.component';
 import { BottomSheet } from './whiteboard-page/whiteboard-page.component';
-import { ShapeService } from './shape.service';
+import { KonvaService } from './konva.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatMenuModule } from '@angular/material/menu';
@@ -28,7 +28,7 @@ import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
     MatBottomSheetModule
   ],
   providers: [
-    ShapeService
+    KonvaService
   ],
   bootstrap: [AppComponent]
 })

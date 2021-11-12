@@ -3,7 +3,7 @@ import Konva from 'konva';
 @Injectable({
   providedIn: 'root'
 })
-export class ShapeService {
+export class KonvaService {
   brushSize!: number;
   brushOpacity!: number;
 
@@ -14,21 +14,22 @@ export class ShapeService {
       stroke: color,
       strokeWidth: size,
       globalCompositeOperation: 'source-over',
-      points: [pos.x, pos.y],
+      points: [pos.x, pos.y, pos.x, pos.y],
       lineCap: 'round',
       lineJoin: 'round',
-      draggable: false,
-      opacity: opacity
+      opacity: opacity,
+      tension: 0
     });
   }
 
   erase(pos: any, size: any) {
     return new Konva.Line({
-      stroke: 'white',
+      stroke: '#ffffff',
       strokeWidth: size,
       globalCompositeOperation: 'destination-out',
-      points: [pos.x, pos.y],
-      draggable: false
+      points: [pos.x, pos.y, pos.x, pos.y],
+      lineCap: 'round',
+      lineJoin: 'round'
     });
   }
 }
