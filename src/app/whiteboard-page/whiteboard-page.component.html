@@ -1,6 +1,10 @@
 <section class="white_board--wrapper">
   <button class="menu_button" mat-icon-button [matMenuTriggerFor]="menu" aria-label="Icon-button with a menu">
-    <mat-icon svgIcon="menu"></mat-icon>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <path
+        d="M 12 3 A 2 2 0 0 0 10 5 A 2 2 0 0 0 12 7 A 2 2 0 0 0 14 5 A 2 2 0 0 0 12 3 z M 12 10 A 2 2 0 0 0 10 12 A 2 2 0 0 0 12 14 A 2 2 0 0 0 14 12 A 2 2 0 0 0 12 10 z M 12 17 A 2 2 0 0 0 10 19 A 2 2 0 0 0 12 21 A 2 2 0 0 0 14 19 A 2 2 0 0 0 12 17 z">
+      </path>
+    </svg>
   </button>
 
   <mat-menu #menu="matMenu" xPosition="before" yPosition="below">
@@ -16,27 +20,84 @@
 
     <button mat-mini-fab (click)='openBottomSheet()' matTooltip="Brush Size" matTooltipPosition="right"
       aria-label="Brush Size & Opacity">
-      <mat-icon svgIcon="brushSizeAndOpacity"></mat-icon>
+      <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+        <path class="tool-option-button-light-body"
+          d="M12.78,7.66,10.35,5.22,4,11.56V14H6.44Zm2.09-2.1a.42.42,0,0,0,0-.6L13,3.13a.42.42,0,0,0-.6,0L11.29,4.28l2.44,2.44Z">
+        </path>
+        <polygon class="tool-option-button-stroke-color" points="17 13 17 17 3 17 17 13"></polygon>
+        <path class="tool-option-button-stroke-outline" d="M3,17L17,13L17,16L16,16L16,14.34L10.18,16L17,16L17,17z">
+        </path>
+        <path class="tool-option-button-dark-body"
+          d="M12.78,7.66,11.56,6.44,4,14H6.44Zm2.09-2.1a.42.42,0,0,0,0-.6L14,4,12.51,5.49l1.22,1.22Z"></path>
+      </svg>
     </button>
 
     <hr class="hr_divider" />
 
     <button mat-mini-fab [ngClass]='selectedButton["brush"] ? "primary_border":"no_border"'
       (click)='setSelection("brush")' matTooltip="Brush" matTooltipPosition="right" aria-label="Brush">
-      <mat-icon svgIcon="brush" [style.fill]="inkColor"></mat-icon>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path
+          d="M15.238,3.989L4.208,14.998c-0.302,0.302-0.503,0.689-0.576,1.11l-0.615,3.567	c-0.133,0.772,0.538,1.442,1.31,1.308l3.525-0.613c0.418-0.073,0.804-0.273,1.104-0.573L20.011,8.761L15.238,3.989z"
+          opacity=".35"></path>
+        <path
+          d="M13.077,6.146l-8.869,8.852c-0.302,0.302-0.503,0.689-0.576,1.11l-0.24,1.388l3.108,3.108l1.351-0.235	c0.418-0.073,0.804-0.273,1.104-0.573l8.894-8.878L13.077,6.146z">
+        </path>
+        <path
+          d="M19.832,8.94l0.179-0.179c1.318-1.318,1.318-3.455,0-4.773c-1.318-1.318-3.455-1.318-4.773,0l-0.179,0.179L19.832,8.94z">
+        </path>
+      </svg>
+      <!-- <mat-icon svgIcon="brush" [style.fill]="inkColor"></mat-icon> -->
     </button>
 
     <button mat-mini-fab [ngClass]='selectedButton["eraser"] ? "primary_border":"no_border"'
       (click)='setSelection("eraser")' matTooltip="Eraser" matTooltipPosition="right" aria-label="Eraser">
-      <mat-icon svgIcon="eraser"></mat-icon>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+        <linearGradient id="yQ9aSYczHsIsBLVexJfkNa" x1="12.684" x2="21.648" y1="-3.023" y2="47.817"
+          gradientUnits="userSpaceOnUse">
+          <stop offset="0" stop-color="#f9f9f9"></stop>
+          <stop offset=".966" stop-color="#c4c9cd"></stop>
+          <stop offset="1" stop-color="#c2c8cc"></stop>
+        </linearGradient>
+        <path fill="url(#yQ9aSYczHsIsBLVexJfkNa)"
+          d="M18.989,14.989L4.581,29.399c-0.774,0.773-0.774,2.029,0,2.804l11.151,11.22 c0.771,0.776,2.026,0.779,2.801,0.007L33.01,29.01L18.989,14.989z">
+        </path>
+        <linearGradient id="yQ9aSYczHsIsBLVexJfkNb" x1="28.511" x2="40.256" y1=".755" y2="67.365"
+          gradientUnits="userSpaceOnUse">
+          <stop offset="0" stop-color="#889097"></stop>
+          <stop offset=".679" stop-color="#5f6b74"></stop>
+          <stop offset="1" stop-color="#4c5963"></stop>
+        </linearGradient>
+        <path fill="url(#yQ9aSYczHsIsBLVexJfkNb)"
+          d="M31.51,30.51l12.909-12.908c0.774-0.774,0.774-2.03,0-2.805L33.203,3.581 c-0.774-0.774-2.03-0.774-2.805,0L17.489,16.489L31.51,30.51z">
+        </path>
+        <linearGradient id="yQ9aSYczHsIsBLVexJfkNc" x1="32.288" x2="41.311" y1="-10.821" y2="40.352"
+          gradientUnits="userSpaceOnUse">
+          <stop offset="0" stop-color="#889097"></stop>
+          <stop offset="1" stop-color="#4c5963"></stop>
+        </linearGradient>
+        <path fill="url(#yQ9aSYczHsIsBLVexJfkNc)"
+          d="M41.403,20.618l3.016-3.016c0.774-0.774,0.774-2.03,0-2.805L33.203,3.581 c-0.774-0.774-2.03-0.774-2.805,0l-3.017,3.016L41.403,20.618z">
+        </path>
+      </svg>
     </button>
 
     <button mat-mini-fab (click)='undo()' matTooltip="Undo" matTooltipPosition="right" aria-label="Undo">
-      <mat-icon svgIcon="undo"></mat-icon>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path
+          d="M 2 7 L 2 16 L 11 16 L 7.3789062 12.378906 C 8.7653195 11.211569 10.5449 10.5 12.5 10.5 C 16.034 10.5 19.024984 12.794656 20.083984 15.972656 L 22.451172 15.183594 C 21.062172 11.012594 17.138 8 12.5 8 C 9.8543339 8 7.4570807 8.9979817 5.6152344 10.615234 L 2 7 z">
+        </path>
+      </svg>
     </button>
 
     <button mat-mini-fab (click)='clearBoard()' matTooltip="Clear" matTooltipPosition="right" aria-label="Clear Canvas">
-      <mat-icon svgIcon="delete"></mat-icon>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path d="M17,22H7c-1.657,0-3-1.343-3-3V6h16v13C20,20.657,18.657,22,17,22z" opacity=".35"></path>
+        <path d="M16,4H8V3c0-0.552,0.448-1,1-1h6c0.552,0,1,0.448,1,1V4z"></path>
+        <path
+          d="M19,3C18.399,3,5.601,3,5,3C3.895,3,3,3.895,3,5c0,1.105,0.895,2,2,2c0.601,0,13.399,0,14,0c1.105,0,2-0.895,2-2	C21,3.895,20.105,3,19,3z">
+        </path>
+      </svg>
     </button>
   </div>
 

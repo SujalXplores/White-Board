@@ -1,18 +1,14 @@
-<mat-action-list>
-  <div>Brush Size</div>
-  <div mat-list-item>
-    <div mat-line>
-      <mat-slider [value]="brushSize" [(ngModel)]="brushSize" thumbLabel step="1" min="1" max="100"
-        aria-label="brush size">
-      </mat-slider>
-    </div>
+<div>
+  <div>
+    <div>Brush Size</div>
+    <mat-slider [value]="brushSize" [(ngModel)]="brushSize" thumbLabel step="1" min="1" max="100"
+      aria-label="brush size">
+    </mat-slider>
   </div>
-  <div>Brush Opacity</div>
-  <div mat-list-item>
-    <div mat-line>
-      <mat-slider [value]="brushOpacity" [(ngModel)]="brushOpacity" thumbLabel step="0.1" min="0" max="1"
-        aria-label="brush opacity">
-      </mat-slider>
-    </div>
+  <div>
+    <div>Brush Opacity</div>
+    <mat-slider [value]="brushOpacity" [(ngModel)]="brushOpacity" thumbLabel step="0.1" min="0.1" max="1"
+      aria-label="brush opacity">
+    </mat-slider>
   </div>
-</mat-action-list>
+</div>

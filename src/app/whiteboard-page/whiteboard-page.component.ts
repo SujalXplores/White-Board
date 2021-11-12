@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ShapeService } from '../shape.service';
-import { MatIconRegistry } from '@angular/material/icon';
-import { DomSanitizer } from '@angular/platform-browser';
 import { MatBottomSheet, MatBottomSheetRef } from '@angular/material/bottom-sheet';
 import Konva from 'konva';
 
@@ -26,35 +24,8 @@ export class WhiteboardPageComponent implements OnInit {
 
   constructor(
     private _bottomSheet: MatBottomSheet,
-    private shapeService: ShapeService,
-    private matIconRegistry: MatIconRegistry,
-    private domSanitizer: DomSanitizer
-  ) {
-    this.matIconRegistry.addSvgIcon(
-      "menu",
-      this.domSanitizer.bypassSecurityTrustResourceUrl("assets/menu.svg")
-    );
-    this.matIconRegistry.addSvgIcon(
-      "brushSizeAndOpacity",
-      this.domSanitizer.bypassSecurityTrustResourceUrl("assets/brushSizeAndOpacity.svg")
-    );
-    this.matIconRegistry.addSvgIcon(
-      "brush",
-      this.domSanitizer.bypassSecurityTrustResourceUrl("assets/brush.svg")
-    );
-    this.matIconRegistry.addSvgIcon(
-      "eraser",
-      this.domSanitizer.bypassSecurityTrustResourceUrl("assets/eraser.svg")
-    );
-    this.matIconRegistry.addSvgIcon(
-      "undo",
-      this.domSanitizer.bypassSecurityTrustResourceUrl("assets/undo.svg")
-    );
-    this.matIconRegistry.addSvgIcon(
-      "delete",
-      this.domSanitizer.bypassSecurityTrustResourceUrl("assets/delete.svg")
-    );
-  }
+    private shapeService: ShapeService
+  ) { }
 
   ngOnInit() {
     // console.clear();
