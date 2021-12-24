@@ -79,10 +79,11 @@ export class WhiteboardPageComponent implements OnInit {
     let lastLine: any;
     let isPaint: boolean = false;
 
-    this.stage.on('mousedown touchstart', function () {
+    this.stage.on('mousedown touchstart', function (e) {
       if (!component.selectedButton['brush'] && !component.eraser) {
         return;
       }
+      e.evt.preventDefault();
       isPaint = true;
       let pos = component.stage.getPointerPosition();
       lastLine = component.eraser ? component.konvaService.erase(pos, 30) : component.konvaService.brush(pos, component.brushSize, component.inkColor, component.brushOpacity);
@@ -94,7 +95,7 @@ export class WhiteboardPageComponent implements OnInit {
       isPaint = false;
     });
 
-    this.stage.on('mousemove touchmove', function (e: any) {
+    this.stage.on('mousemove touchmove', function (e) {
       if (!isPaint) {
         return;
       }
