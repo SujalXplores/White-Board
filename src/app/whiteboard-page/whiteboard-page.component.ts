@@ -79,11 +79,10 @@ export class WhiteboardPageComponent implements OnInit {
     let lastLine: any;
     let isPaint: boolean = false;
 
-    this.stage.on('mousedown touchstart', function (e) {
+    this.stage.on('mousedown touchstart', function () {
       if (!component.selectedButton['brush'] && !component.eraser) {
         return;
       }
-      e.evt.preventDefault();
       isPaint = true;
       let pos = component.stage.getPointerPosition();
       lastLine = component.eraser ? component.konvaService.erase(pos, 30) : component.konvaService.brush(pos, component.brushSize, component.inkColor, component.brushOpacity);
