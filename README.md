@@ -38,3 +38,9 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+# Things that can be improved
+
+- [] Hide left controller in mobile view on click and drag event
+- [] Add a feature to add/manage multiple layer
+- [] Add option to change background color
