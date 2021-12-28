@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { KonvaService } from '../konva.service';
 import { MatBottomSheet, MatBottomSheetRef } from '@angular/material/bottom-sheet';
-import Konva from 'konva';
+import { Stage } from 'konva/lib/Stage';
+import { Layer } from 'konva/lib/Layer';
+import { Transformer } from 'konva/lib/shapes/Transformer';
 
 @Component({
   selector: 'app-whiteboard-page',
@@ -10,15 +12,15 @@ import Konva from 'konva';
 })
 export class WhiteboardPageComponent implements OnInit {
   shapes: any = [];
-  stage!: Konva.Stage;
-  layer!: Konva.Layer;
+  stage!: Stage;
+  layer!: Layer;
   inkColor: string = '#000000';
   selectedButton: any = {
     'line': false,
     'eraser': false
   }
   eraser: boolean = false;
-  transformers: Konva.Transformer[] = [];
+  transformers: Transformer[] = [];
   brushSize: number = 3;
   brushOpacity: number = 1.0;
 
@@ -29,12 +31,12 @@ export class WhiteboardPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.setSelection('brush');
-    this.stage = new Konva.Stage({
+    this.stage = new Stage({
       container: 'container',
       width: window.innerWidth,
       height: window.innerHeight
     });
-    this.layer = new Konva.Layer();
+    this.layer = new Layer();
     this.stage.add(this.layer);
     this.addLineListeners();
   }

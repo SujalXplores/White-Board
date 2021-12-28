@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import Konva from 'konva';
+import { Line } from 'konva/lib/shapes/Line';
 @Injectable({
   providedIn: 'root'
 })
@@ -10,7 +10,7 @@ export class KonvaService {
   brush(pos: any, size: any, color: string, opacity: number) {
     this.brushSize = size;
     this.brushOpacity = opacity;
-    return new Konva.Line({
+    return new Line({
       stroke: color,
       strokeWidth: size,
       globalCompositeOperation: 'source-over',
@@ -23,7 +23,7 @@ export class KonvaService {
   }
 
   erase(pos: any, size: any) {
-    return new Konva.Line({
+    return new Line({
       stroke: '#ffffff',
       strokeWidth: size,
       globalCompositeOperation: 'destination-out',
