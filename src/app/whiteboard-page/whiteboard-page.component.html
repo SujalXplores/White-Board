@@ -10,10 +10,11 @@
   <mat-menu #menu="matMenu" xPosition="before" yPosition="below">
     <a mat-menu-item (click)="saveAsImage()" aria-label="Save as image">Save as image</a>
     <a mat-menu-item href="https://github.com/SujalShah3234/White-Board/issues" aria-label="Report Bug">Report bug</a>
+    <a mat-menu-item href="https://github.com/SujalShah3234" aria-label="Developer Name">Made with ❤️ by Sujal Shah</a>
   </mat-menu>
 
   <div class="white_board--controls mat-elevation-z8">
-    <button mat-mini-fab matTooltip="Color Plate" matTooltipPosition="right" aria-label="Ink Color Selector">
+    <button mat-mini-fab matTooltip="Color palette" matTooltipPosition="right" aria-label="Ink Color Picker">
       <input role="button" type="color" [value]="inkColor" [style.background]="inkColor" [(ngModel)]="inkColor"
         aria-label="Color Picker" />
     </button>
