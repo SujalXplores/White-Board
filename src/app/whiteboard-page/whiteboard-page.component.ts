@@ -50,7 +50,7 @@ export class WhiteboardPageComponent implements OnInit {
 
   openBottomSheet(): void {
     const bottomSheetRef = this._bottomSheet.open(BottomSheet);
-    bottomSheetRef.afterDismissed().subscribe((result) => {
+    bottomSheetRef.afterDismissed().subscribe((result: any) => {
       if (result) {
         this.brushSize = result.brushSize;
         this.brushOpacity = result.brushOpacity;
@@ -80,6 +80,7 @@ export class WhiteboardPageComponent implements OnInit {
     const component = this;
     let lastLine: any;
     let isPaint: boolean = false;
+    const control_container = document.getElementById('control_container');
 
     this.stage.on('mousedown touchstart', function () {
       if (!component.selectedButton['brush'] && !component.eraser) {
@@ -90,10 +91,12 @@ export class WhiteboardPageComponent implements OnInit {
       lastLine = component.eraser ? component.konvaService.erase(pos, 30) : component.konvaService.brush(pos, component.brushSize, component.inkColor, component.brushOpacity);
       component.shapes.push(lastLine);
       component.layer.add(lastLine);
+      control_container?.classList.add('hide_palette');
     });
 
     this.stage.on('mouseup touchend', function () {
       isPaint = false;
+      control_container?.classList.remove('hide_palette');
     });
 
     this.stage.on('mousemove touchmove', function (e) {

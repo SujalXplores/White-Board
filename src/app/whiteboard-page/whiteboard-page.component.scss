@@ -26,6 +26,18 @@
   z-index: 1;
 }
 
+#control_container.hide_palette {
+  opacity: 0.2;
+  pointer-events: none;
+  animation: hide_palette_animation 0.5s forwards;
+}
+
+@keyframes hide_palette_animation {
+  to {
+    transform: translate(-50px);
+  }
+}
+
 input[type="color"] {
   border-radius: 50%;
   cursor: pointer;

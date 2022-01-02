@@ -1,4 +1,4 @@
-# 🧑🏻‍🏫 WhiteBoard
+# 🧑‍🏫 WhiteBoard
 
 [![HitCount](http://hits.dwyl.com/SujalShah3234/White-Board.svg)](http://hits.dwyl.com/SujalShah3234/White-Board)
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/Naereen/StrapDown.js/graphs/commit-activity)
@@ -41,6 +41,6 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 # Things that can be improved
 
-- [] Hide left controller in mobile view on click and drag event
+- [✅] ~~Hide left controller in mobile view on click and drag event~~
 - [] Add a feature to add/manage multiple layer
 - [] Add option to change background color
